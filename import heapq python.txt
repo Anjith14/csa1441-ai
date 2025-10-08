@@ -1,0 +1,80 @@
+import heapq
+
+# A* solver for 8-puzzle
+
+goal = (1,2,3,4,5,6,7,8,0)  # 0 represents the blank
+
+# Moves: up, down, left, right (index delta in flat array)
+moves = {
+    'U': -3,
+    'D': +3,
+    'L': -1,
+    'R': +1
+}
+
+# Which moves are invalid depending on blank position
+invalid_moves = {
+    'L': {0,3,6},
+    'R': {2,5,8},
+    'U': {0,1,2},
+    'D': {6,7,8}
+}
+
+def manhattan(state):
+    """Heuristic: sum of Manhattan distances of tiles from goal positions."""
+    dist = 0
+    for idx, v in enumerate(state):
+        if v == 0:
+            continue
+        goal_idx = goal.index(v)
+        dist += abs(idx//3 - goal_idx//3) + abs(idx%3 - goal_idx%3)
+    return dist
+
+def get_neighbors(state):
+    neighbors = []
+    zero_idx = state.index(0)
+    for move, delta in moves.items():
+        if zero_idx in invalid_moves[move]:
+            continue
+        new_zero = zero_idx + delta
+        new_state = list(state)
+        # swap
+        new_state[zero_idx], new_state[new_zero] = new_state[new_zero], new_state[zero_idx]
+        neighbors.append((move, tuple(new_state)))
+    return neighbors
+
+def solve_puzzle(start):
+    # A* search
+    frontier = []
+    # Each item: (f_score, g_score, state, path)
+    g0 = 0
+    h0 = manhattan(start)
+    heapq.heappush(frontier, (g0 + h0, g0, start, []))
+    visited = set()
+
+    while frontier:
+        f, g, state, path = heapq.heappop(frontier)
+        if state == goal:
+            return path
+        if state in visited:
+            continue
+        visited.add(state)
+
+        for move, neigh in get_neighbors(state):
+            if neigh in visited:
+                continue
+            new_g = g + 1
+            new_h = manhattan(neigh)
+            new_path = path + [move]
+            heapq.heappush(frontier, (new_g + new_h, new_g, neigh, new_path))
+    return None
+
+if __name__ == "__main__":
+    # Example start state: 1 2 3 / 4 0 6 / 7 5 8
+    start = tuple(int(x) for x in input("Enter 9 digits (0 for blank), space-separated: ").split())
+    solution = solve_puzzle(start)
+    if solution is None:
+        print("No solution found.")
+    else:
+        print("Solution moves:", solution)
+        print("Number of moves:", len(solution))
