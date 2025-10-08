@@ -1,0 +1,34 @@
+import itertools
+
+def solve_cryptarithm(words, result):
+    # words: list of strings to sum, e.g. ["SEND", "MORE"]
+    # result: the result word, e.g. "MONEY"
+    letters = set("".join(words) + result)
+    letters = list(letters)
+    if len(letters) > 10:
+        print("Too many letters")
+        return None
+
+    first_letters = set(w[0] for w in words + [result])
+    # digits 0-9
+    for perm in itertools.permutations('0123456789', len(letters)):
+        mapping = dict(zip(letters, perm))
+        # Leading letter cannot be '0'
+        if any(mapping[ch] == '0' for ch in first_letters):
+            continue
+        def word_val(w):
+            return int("".join(mapping[c] for c in w))
+        s = sum(word_val(w) for w in words)
+        if s == word_val(result):
+            return mapping, [word_val(w) for w in words], word_val(result)
+    return None
+
+if __name__ == "__main__":
+    # Example: SEND + MORE = MONEY
+    sol = solve_cryptarithm(["SEND","MORE"], "MONEY")
+    if sol:
+        mapping, vals, res = sol
+        print("Mapping:", mapping)
+        print("Values:", vals, "Result:", res)
+    else:
+        print("No solution found.")
