@@ -1,0 +1,36 @@
+# Python script that outputs a simple HTML page with anchor and title tags
+
+html_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My HTML Demo Page</title>
+</head>
+<body>
+
+    <h2>HTML Tags Demo</h2>
+
+    <p>This is a simple demonstration of some HTML tags generated using Python.</p>
+
+    <p>
+        Visit <a href="https://www.example.com" title="Go to Example.com" target="_blank">Example.com</a> for more info.
+    </p>
+
+    <p><strong>Bold text</strong> and <em>italic text</em> are easy to use.</p>
+
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>Python</li>
+    </ul>
+
+</body>
+</html>
+"""
+
+# Write the HTML content to a file
+with open("demo_page.html", "w") as file:
+    file.write(html_content)
+
+print("HTML file 'demo_page.html' has been created.")
