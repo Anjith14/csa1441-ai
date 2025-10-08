@@ -1,0 +1,12 @@
+import calendar
+
+def show_calendar(month, year):
+    # month: 1..12, year: e.g. 2025
+    cal = calendar.month(year, month)
+    print(cal)
+
+if __name__ == "__main__":
+    # Example
+    m = int(input("Enter month (1–12): "))
+    y = int(input("Enter year: "))
+    show_calendar(m, y)
