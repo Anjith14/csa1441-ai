@@ -1,0 +1,11 @@
+import string
+
+def remove_punctuations(s: str) -> str:
+    # string.punctuation gives common punctuation characters
+    table = str.maketrans('', '', string.punctuation)
+    return s.translate(table)
+
+if __name__ == "__main__":
+    text = input("Enter a string: ")
+    cleaned = remove_punctuations(text)
+    print("Without punctuation:", cleaned)
