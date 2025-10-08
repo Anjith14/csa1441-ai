@@ -1,0 +1,47 @@
+# Assume two rooms: Left (0) and Right (1); each can be clean or dirty.
+
+from collections import deque
+
+def solve_vacuum(initial):
+    # initial: (position, dirt_left, dirt_right), dirt_x = 0 or 1
+    start = initial
+    goal = (0, 0, 0)  # both clean, position doesn't matter
+    queue = deque([(start, [])])
+    visited = set([start])
+
+    def neighbors(state):
+        pos, dl, dr = state
+        res = []
+        # Clean current
+        if (pos == 0 and dl == 1):
+            res.append(((pos, 0, dr), "Suck"))
+        if (pos == 1 and dr == 1):
+            res.append(((pos, dl, 0), "Suck"))
+        # Move left
+        if pos == 1:
+            res.append(((0, dl, dr), "MoveLeft"))
+        # Move right
+        if pos == 0:
+            res.append(((1, dl, dr), "MoveRight"))
+        return res
+
+    while queue:
+        state, path = queue.popleft()
+        _, dl, dr = state
+        if dl == 0 and dr == 0:
+            return path + [state]
+        for neigh, act in neighbors(state):
+            if neigh not in visited:
+                visited.add(neigh)
+                queue.append((neigh, path + [ (state, act) ]))
+    return None
+
+if __name__ == "__main__":
+    # e.g. start at left (0), both rooms dirty
+    sol = solve_vacuum((0,1,1))
+    if sol:
+        print("Solution:")
+        for step in sol:
+            print(step)
+    else:
+        print("No solution")
