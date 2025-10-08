@@ -1,0 +1,30 @@
+# List Methods: Add, Append, Extend, Delete
+
+# Initial list
+my_list = [10, 20, 30]
+print("Initial List:", my_list)
+
+# 1. Add using insert(position, element)
+my_list.insert(1, 15)
+print("\nAfter insert(1, 15):", my_list)  # Inserts 15 at index 1
+
+# 2. Append element at the end
+my_list.append(40)
+print("After append(40):", my_list)
+
+# 3. Extend list with multiple elements
+my_list.extend([50, 60])
+print("After extend([50, 60]):", my_list)
+
+# 4. Delete using del (by index)
+del my_list[2]  # Deletes element at index 2
+print("\nAfter del my_list[2]:", my_list)
+
+# 5. Delete using remove(value)
+my_list.remove(40)  # Removes first occurrence of value 40
+print("After remove(40):", my_list)
+
+# 6. Delete using pop(index)
+popped_element = my_list.pop(1)  # Removes and returns element at index 1
+print("After pop(1):", my_list)
+print("Popped element:", popped_element)
