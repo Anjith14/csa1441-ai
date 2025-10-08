@@ -1,0 +1,18 @@
+def demo_set_operations():
+    A = {1, 2, 3, 4}
+    B = {3, 4, 5, 6}
+
+    print("A:", A)
+    print("B:", B)
+
+    print("Union A ∪ B:", A | B)
+    print("Intersection A ∩ B:", A & B)
+    print("Difference A - B:", A - B)
+    print("Difference B - A:", B - A)
+    print("Symmetric difference (A Δ B):", A ^ B)
+    print("Is 3 in A?", 3 in A)
+    print("Is A subset of B?", A <= B)
+    print("Is A superset of B?", A >= B)
+
+if __name__ == "__main__":
+    demo_set_operations()
