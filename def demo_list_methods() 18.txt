@@ -1,0 +1,31 @@
+def demo_list_methods():
+    my_list = [10, 20, 30]
+    print("Initial:", my_list)
+
+    # Add — using insert
+    my_list.insert(1, 15)  
+    print("After insert(1,15):", my_list)
+
+    # Append — adds to end
+    my_list.append(40)
+    print("After append(40):", my_list)
+
+    # Extend — add multiple
+    my_list.extend([50, 60])
+    print("After extend([50,60]):", my_list)
+
+    # Delete by index using del
+    del my_list[2]
+    print("After del my_list[2]:", my_list)
+
+    # Delete by value using remove (first occurrence)
+    my_list.remove(40)
+    print("After remove(40):", my_list)
+
+    # Delete and return using pop
+    popped = my_list.pop(1)
+    print("After pop(1):", my_list)
+    print("Popped value:", popped)
+
+if __name__ == "__main__":
+    demo_list_methods()
